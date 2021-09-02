@@ -181,3 +181,19 @@ db.grades.find({ "student_id": 250, "class_id": 339 }).pretty()
 db.grades.updateOne({"student_id":250,"class_id":339},{"$push":{"scores":{"type":"extra credit","score": 100 }}})
 
 
+_________________________________
+Chapter3
+
+use sample_training
+db.inspections.find({ "test": 1 }).pretty()
+db.inspections.find({ "test": 3 }).pretty()
+db.inspections.deleteMany({ "test": 1 })
+db.inspections.deleteOne({ "test": 3 })
+db.inspection.find().pretty()
+show collections
+db.inspection.drop()
+
+**deleteOne("_id:dfdsfs)** only use if you have the id, otherwise it will delete an arbritray one of many with the atrributes you prescribe
+
+### Your Chapter 3 IDE space
+

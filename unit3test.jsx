@@ -13,7 +13,7 @@ db.theaters.insert({"_id":ObjectId("59a47286cfa9a3a73e51e736"),"theaterId" : 101
 //remove the id field and add again to show no dup error
 db.theaters.insert({"theaterId" : 1017,  "location" : {"address" : { "street1" : "4325 Sunset Dr","city" : "San Angelo","state" : "TX","zipcode" : "76904"},"geo" : { "type" : "Point","coordinates" : [-100.50107,31.435648]}}})
 
-
+//Inserting New Documents - insert() order:
 //insert to inspections collection 3 docs
 db.inspections.insert([{"test":1},{"test":2},{"test":3}])
 
@@ -49,4 +49,34 @@ db.zips.updateMany({ "city": "HUDSON" }, { "$inc": { "pop": 10 } })
 //update single with pop number using set
 db.zips.updateOne({ "zip": "12534" }, { "$set": { "pop": 17630 } })
 
-//update using population to show that it will careate the field.
+//update using population to show that it will create the field.
+db.zips.updateOne({ "zip": "12534" }, { "$set": { "population": 17630 } })
+
+
+//find specific student
+db.grades.find({ "student_id": 151, "class_id": 339 }).pretty()
+
+//find another specific student
+db.grades.find({ "student_id": 250, "class_id": 339 }).pretty()
+
+//update student by pushing new element scores
+db.grades.updateOne({"student_id":250,"class_id":339},{"$push":{"scores":{"type":"extra credit","score": 100 }}})
+
+//PRACTICE QUES
+db.zips.updateMany({"state": "NY", "city":"NEW YORK"},{"$set":{"capital?":false}})
+
+
+//PRACTICE QUESTIONS
+db.inspections.find({ "test": 1 }).pretty()
+
+db.inspections.find({ "test": 3 }).pretty()
+
+db.inspections.deleteMany({ "test": 1 })
+
+db.inspections.deleteOne({ "test": 3 })
+
+db.inspection.find().pretty()
+
+show collections
+db.inspection.drop()
+

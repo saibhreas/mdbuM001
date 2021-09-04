@@ -46,24 +46,62 @@ How many documents in the sample_training.zips collection have fewer than 1000 p
 ### Lab 2: Comparison Operators
 
 What is the difference between the number of people born in 1998 and the number of people born after 1998 in the sample_training.trips collection?
-
-  $subtract (aggregation)   https://docs.mongodb.com/manual/reference/operator/aggregation/subtract/
-    { $subtract: [ <expression1>, <expression2> ] }
-    Expression 1 born in 1998:
+Expression 1 born in 1998:
       db.trips.find({"birth year": 1998}).count()
 
-    Expression 2 Born after 1998:
+Expression 2 Born after 1998:
       db.trips.find({"birth year": {$gt: 1998} }).count()
 
-  Now Bring in $subtract
-    db.trips.find({ $subtract: [ <expression1>, <expression2> ] }
-  )
+db.trips.find({"birth year":{"$gt":1998}}).count() - db.trips.find({"birth year":1998}).count()
+
+  
+
+  Query Operators - Logic
+
+  $and  meet all specifications (is implicit if not specified)
+  $or   at least one spec
+  $nor  returns only those that fail to match  (use as filter)
+  $not  negates the query specification returna all that do not match
+
+use sample_training
+db.routes.find({ "$and": [ { "$or" :[ { "dst_airport": "KZN" },
+                                    { "src_airport": "KZN" }
+                                  ] },
+                          { "$or" :[ { "airplane": "CR2" },
+                                     { "airplane": "A81" } ] }
+                         ]}).pretty()
+
+
+Atlas command:
+{$nor: [{result: "No Violation Issued"}, {result: "Violation Issued"}]}
+{$nor: [{result: "No Violation Issued"}, {result: "Violation Issued"}, {result:"Pass"}, {result:"Fail"}]}
+
+
+1. How many businesses in the sample_training.inspections dataset have the
+   inspection result "Out of Business" and belong to the Home Improvement
+   Contractor - 100 sector?
+sector:"Home Improvement Contractor - 100"
+
+db.inspections.find({"result":"Out of Business", "sector":"Home Improvement Contractor - 100"}).count()
+
+db.inspections.find({$and : [{"result":"Out of Business"}, {"sector":"Home Improvement Contractor - 100"}]}).count()
+
+Quiz 2: Logic Operators
+Which is the most succinct query to return all documents from the sample_training.inspections collection where the inspection date is either "Feb 20 2015", or "Feb 21 2015" and the company is not part of the "Cigarette Retail Dealer - 127" sector?
+
+
+db.inspections.find({ "$or": [ { "date": "Feb 20 2015" },{ "date": "Feb 21 2015" } ],"sector": { "$ne": "Cigarette Retail Dealer - 127" }}).pretty()
 
 
 
 
-db.trips.find({ $subtract: [ <expression1>, <expression2> ] }
-  )
+Chapter 4: Advanced CRUD Operations
 
-db.trips.find(db.trips.find({ $subtract: [ {db.trips.find({"birth year": 1998}).count()}, db.trips.find({"birth year": {$gt: 1998} }).count() ] }
-  ))
+Lab 1: Logic Operators
+db.zips.updateMany({ "city": "HUDSON" }, { "$inc": { "pop": -10 } })
+
+How many zips in the sample_training.zips dataset are neither over-populated nor under-populated?
+
+In this case, we consider population of more than 1,000,000 to be over- populated and less than 5,000 to be under-populated.
+
+Copy/paste the exact numeric value (without double quotes) of the result that you get into the response field.

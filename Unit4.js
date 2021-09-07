@@ -9,9 +9,11 @@
 
   **Comapirison**
 
-  $eq = EQual to  ||  $ne = NotEqual to
-  $gt > Greater Than  ||  $lt < Less Than
-  $gte >= Greater Than or Equal to  || $lte <= Less Than or Equal to
+    $eq = EQual to  ||  $ne = NotEqual to
+
+    $gt > Greater Than  ||  $lt < Less Than
+
+    $gte >= Greater Than or Equal to  || $lte <= Less Than or Equal to
 
   Comparison Operators specifically allow finding data within a certain range
 

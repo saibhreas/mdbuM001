@@ -111,17 +111,27 @@ Problem:
 How many companies in the sample_training.companies dataset were
 
 either founded in 2004
-  [and] either have the social category_code [or] web category_code,
-      db.companies.find({$and:[{"founded_year":2004},{$or:[{"catagory_code": "social"},{"category_code": "web"} ]} ]}).count()
 
-[or] 
-founded in the month of October
+  - [and] 
+  
+      either have the social category_code 
+  
+      [or] web category_code,
 
-  [and] also either have the social category_code [or] web category_code?
-   db.companies.find({$and:[{"founded_month":10},{$or:[{"catagory_code": "social"},{"category_code": "web"} ]} ]}).count()
+        db.companies.find({$and:[{"founded_year":2004},{$or:[{"catagory_code": "social"},{"category_code": "web"} ]} ]}).count()
+
+  - [or] 
+  
+      founded in the month of October
+
+      [and] also either have the social category_code 
+
+      [or] web category_code?
+
+         db.companies.find({$and:[{"founded_month":10},{$or:[{"catagory_code": "social"},{"category_code": "web"} ]} ]}).count()
 **put them together:
 
-db.companies.find({
+    db.companies.find({
     $or: [
       {
         founded_year: 2004,
@@ -130,10 +140,8 @@ db.companies.find({
       {
         founded_month: 10,
         $or: [{ category_code: 'social' }, { category_code: 'web' }],
-      },
-    ],
-  })
-  .count();
+      },],
+    }).count();
 
 Quiz 1: Logic Operators
 

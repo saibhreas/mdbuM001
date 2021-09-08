@@ -19,7 +19,7 @@ Document and serve as a reference of completion of MongoDB Basics course.
 ## Table of Content
   
   1. [Description](#description)
-  2. [Installation](#instalation)
+  2. [Installation](#installation)
   3. [Usage](#usage)
   4. [Technologies](#technologies)
   5. Modules

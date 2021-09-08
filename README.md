@@ -12,7 +12,7 @@ Saibhreas
   
 #### Email: sr@saibhreas.com
   
-## Purpose: 
+## Purpose 
 
 Document and serve as a reference of completion of MongoDB Basics course.
   
@@ -24,8 +24,8 @@ Document and serve as a reference of completion of MongoDB Basics course.
   4. [Technologies](#technologies)
   5. Modules
 
-    Unit 4 Advanced Crud operations [a relative link](Unit4.md)
-  
+       [Unit 4 Advanced Crud operations ](Unit4.md)
+
 
 ## Description
   
@@ -44,7 +44,7 @@ Free to anyone to use as a reference, or fork. Please do not alter.  This is jus
 
 ## Technologies
 
-  - Mongo DB (course material given)
+  - ![MongoLeaf](./img/mongoLite.png)  Mongo DB (course material given)
   - MongoDB shell
   - MongoDB Atlas
   - VS Code/ github for environments

@@ -1,4 +1,4 @@
-# mdbuM001M001: MongoDB Basics
+# ![MongoLeaf](./img/mongoLite.png)mdbuM001M001: MongoDB Basics
 
 Course 1 MongoDB university
 
@@ -44,7 +44,8 @@ Free to anyone to use as a reference, or fork. Please do not alter.  This is jus
 
 ## Technologies
 
-  - ![MongoLeaf](./img/mongoLite.png)  Mongo DB (course material given)
+![MongoLeaf](./img/mongoLite.png)
+  - Mongo DB (course material given)
   - MongoDB shell
   - MongoDB Atlas
   - VS Code/ github for environments

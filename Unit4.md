@@ -8,12 +8,12 @@ mongo mongo "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/admin"
 
   ## Query Operators
   
-  1. [Comapirison](##comapirison)
-  2. [Logic](##logic)
-  3. [Expressive](##expressive)
-  4. [Array](##array)
-  5. [Projection](##projection)
-  6. [Questions:(###qusetions)]
+  1. [Comapirison](#comapirison)
+  2. [Logic](#logic)
+  3. [Expressive](#expressive)
+  4. [Array](#array)
+  5. [Projection](#projection)
+
 
 ## Query Operators:
 

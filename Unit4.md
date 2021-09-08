@@ -6,6 +6,15 @@ mongo mongo "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/admin"
 
     mongo "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.tbzlc.mongodb.net/firstCert"
 
+  ## Query Operators
+  
+  1. [Comapirison](##comapirison)
+  2. [Logic](##logic)
+  3. [Expressive](##expressive)
+  4. [Array](##array)
+  5. [Projection](##projection)
+  6. [Questions:(###qusetions)]
+
 ## Query Operators:
 
 syntax: $
@@ -70,7 +79,7 @@ which of the following statements will return all routes that have at least one 
     db.routes.find({"stops":{"$gt":0}})
 
 
- ##  Operators - Logic
+ ##  Logic
 
   $and  meet all specifications (is implicit if not specified)
   
@@ -163,7 +172,7 @@ How many zips in the sample_training.zips dataset are neither over-populated nor
 
     db.zips.find({"pop":{"$gte":5000,"$lte":1000000}}).count(
 
-## Expressive Query operators
+## Expressive 
 
 $ expr allows the use of aggregation expressions within the querry language
 
@@ -232,7 +241,7 @@ How many companies in the sample_training.companies collection have the same per
 
 
 
-## Array Operators:
+## Array 
 
 For this exercise use: use sample_airbnb
 
@@ -307,9 +316,9 @@ Which of the following queries will return all listings that have "Free parking 
       { "$all":["Free parking on premises","Air conditioning","Wifi"]},"bedrooms":{"$gte":2} }).pretty()
 
 
-## Array Operators and Projection
+## Projection
 
-**jsut a reminder**
+**just a reminder**
 
     mongo "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.tbzlc.mongodb.net/firstCert
 use sample_airbnb

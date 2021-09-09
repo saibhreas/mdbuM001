@@ -25,3 +25,7 @@ https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoC
 https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
 
 [![Mongo DB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)]
+
+
+
+![GitHub stars](https://img.shields.io/github/stars/USER/REPOSITORY?style=social) ![GitHub forks](https://img.shields.io/github/forks/saibhreas/mdbuM001?style=social) ![GitHub watchers](https://img.shields.io/github/watchers/USER/REPOSITORY?style=social) ![GitHub followers](https://img.shields.io/github/followers/USER?style=social)

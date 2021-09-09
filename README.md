@@ -25,6 +25,7 @@ Document and serve as a reference of completion of MongoDB Basics course.
   5. Modules
 
        [Unit 3 Creating and Manipulating Documents ](Unit3.md)
+       
        [Unit 4 Advanced Crud operations ](Unit4.md)
 
 
@@ -59,5 +60,4 @@ Free to anyone to use as a reference, or fork. Please do not alter.  This is jus
 
 https://university.mongodb.com/ 
 
-Will fill in in a bit.
-Much of the information so far is located on a LMS system.  Just starting to document what I need .
+

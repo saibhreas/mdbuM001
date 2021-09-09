@@ -24,6 +24,7 @@ Document and serve as a reference of completion of MongoDB Basics course.
   4. [Technologies](#technologies)
   5. Modules
 
+       [Unit 3 Creating and Manipulating Documents ](Unit3.md)
        [Unit 4 Advanced Crud operations ](Unit4.md)
 
 

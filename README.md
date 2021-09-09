@@ -43,7 +43,9 @@ Document and serve as a reference of completion of MongoDB Basics course.
 
 ## Description
 
-Course consists of 6 modules. Starting with Module 2 through 6, each module has a Unit Readme file (e.g. Unit4.md) that will cover briefly the subject covered and the exercises complete with solutions
+Course consists of 6 modules. I have created unit Markdown files for referencing the course material in the future. Starting with Module 2 through 6, each module has a Unit.md file (e.g. Unit4.md) covers briefly the subject covered and the exercises complete with solutions.
+
+Some units have additional material added from Mongo DB Documentation or other sources listed ahead of the material.
 
 ## Installation
 
@@ -66,6 +68,3 @@ Free to anyone to use as a reference, or fork. Please do not alter. This is just
 
 ## Images
 
-### Links
-
-https://university.mongodb.com/

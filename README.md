@@ -4,7 +4,9 @@ Course 1 MongoDB university
 
 ## Contributors: 
 
-Mongo DB University
+Mongo DB University https://university.mongodb.com/
+
+Mongo DB Documentation https://docs.mongodb.com/manual/
 
 Saibhreas
   

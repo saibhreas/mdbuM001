@@ -15,8 +15,6 @@ mongo mongo "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/admin"
   5. [Projection](#projection)
 
 
-## Query Operators:
-
 syntax: $
   - precedes MQL operators
   - precedes Aggregation pipeline stages

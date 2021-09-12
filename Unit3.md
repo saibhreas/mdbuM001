@@ -5,61 +5,58 @@ mongo mongo "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/admin"
     mongo "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.tbzlc.mongodb.net/firstCert"
 
 For this exercise connect to you Mongo DB Atlas Sandbox
+
 ## Inserting New Documents
 
-  1. [ObjectID](#objectIDn)
-  2. [Errors](#errors)
-  3. [Order](#order)
-  4. [Update](#update)
-  5. [Delete](#delete)
-  6. [IDE](#ide)
-      - [Quiz](#quiz)
-      - [Exam](#exam)
-  
-     
-##  ObjectID
+1. [ObjectID](#objectIDn)
+2. [Errors](#errors)
+3. [Order](#order)
+4. [Update](#update)
+5. [Delete](#delete)
+6. [IDE](#ide)
+   - [Quiz](#quiz)
+   - [Exam](#exam)
 
-**from https://docs.mongodb.com/manual/reference/method/ObjectId/
+## ObjectID
+
+\*\*from https://docs.mongodb.com/manual/reference/method/ObjectId/
 
 > ObjectId
-   >Description
-   >ObjectId(<hexadecimal>)
-      >Returns a new ObjectId value. The 12-byte ObjectId value consists of:
-      >a 4-byte timestamp value, representing the ObjectId's creation, measured in seconds since the Unix epoch 
-      >a 5-byte random value
-      >a 3-byte incrementing counter, initialized to a random value
-   >While the BSON format itself is little-endian, the timestamp and counter values are big-endian, with the most significant bytes appearing first in the byte sequence.
+> Description
+> ObjectId(<hexadecimal>)
+> Returns a new ObjectId value. The 12-byte ObjectId value consists of:
+> a 4-byte timestamp value, representing the ObjectId's creation, measured in seconds since the Unix epoch
+> a 5-byte random value
+> a 3-byte incrementing counter, initialized to a random value
+> While the BSON format itself is little-endian, the timestamp and counter values are big-endian, with the most significant bytes appearing first in the byte sequence.
 
-***_id***  
-   
-   unique identifier for a document collection (generated upon creation)
+**_\_id_**
 
-   mandatory field in every document
+unique identifier for a document collection (generated upon creation)
 
-   by default it is of the *type* ObjectId() unless otherwise specified
+mandatory field in every document
+
+by default it is of the _type_ ObjectId() unless otherwise specified
 
 ### Quiz: ObjectId
 
 Problem:
 
-How does the value of _id get assigned to a document?
+How does the value of \_id get assigned to a document?
 
-   You can select an ObjectID as long as it is unique
+You can select an ObjectID as long as it is unique
 
-   The system will automatically generate one if not specified
-
+The system will automatically generate one if not specified
 
 ## Errors
 
-
-for this exercise 
+for this exercise
 
       use sample_training
 
+\*\* from: https://docs.mongodb.com/manual/reference/method/db.collection.insert/
 
-** from: https://docs.mongodb.com/manual/reference/method/db.collection.insert/
-
-   The insert() method has the following syntax:
+The insert() method has the following syntax:
 
       db.collection.insert(
          <document or array of documents>,
@@ -69,26 +66,25 @@ for this exercise
        }
       )
 
-   Document is a single document or an array
+Document is a single document or an array
 
-*writeConcern* is an optional document, specifically overriding the default write operations behavior for a document or array, like adding a 'write time out' to stop the process.
+_writeConcern_ is an optional document, specifically overriding the default write operations behavior for a document or array, like adding a 'write time out' to stop the process.
 
 Fields can contain:
 
       { w: <value>, j: <boolean>, wtimeout: <number> }
 
-*order* is an optional if true insertion follow the array order, once an error occurs no insertions past that point will be completed and the process ends.
+_order_ is an optional if true insertion follow the array order, once an error occurs no insertions past that point will be completed and the process ends.
 
-Mongo DB allows for multiple identical documents as long as they have unique "_id"
+Mongo DB allows for multiple identical documents as long as they have unique "\_id"
 
 MogoDB schema validation allows you to enforce document structure
 
-
-1. Get a random document from a collection
+1.  Get a random document from a collection
 
          db.inspections.findOne();
 
-2. Copy this random document, and insert it back to the collection. Do you get a "Duplicate Key" error?
+2.  Copy this random document, and insert it back to the collection. Do you get a "Duplicate Key" error?
 
 Yes: The insertion did not succeed because a document with this exact ID value already exists.
 
@@ -127,48 +123,47 @@ Yes: The insertion did not succeed because a document with this exact ID value a
 
          db.inspections.find({"id" : "10021-2015-ENFO", "certificate_number" : 9278806}).pretty()
 
-***Removing the whole collection before inserting it back eliminates the duplicate key issue***
+**_Removing the whole collection before inserting it back eliminates the duplicate key issue_**
 
-3. Insert that document into the collection without the _id field to get a successfull insert. Did it work?
+3. Insert that document into the collection without the \_id field to get a successfull insert. Did it work?
 
 Yes, a new identical document is created with a new unique ObjectId generated by the database
 
 ## Order
 
-***ORDER MATTERS***
+**_ORDER MATTERS_**
 
 Inserting New Documents - insert() order:
 
-1. Insert three test documents into the inspections collection
+1.  Insert three test documents into the inspections collection
 
          db.inspections.insert([{"test":1},{"test":2},{"test":3}])
 
-2. Insert the same three documents into the inspections collection. Did it work? & Why? 
+2.  Insert the same three documents into the inspections collection. Did it work? & Why?
 
-   Yes use they did nto have any '_id' assigned
+    Yes use they did nto have any '\_id' assigned
 
-3. Insert these three test documents into the inspections collection. 
-
-        db.inspections.insert([{ "_id": 1, "test": 1 },{ "_id": 1, "test": 2 },
-                       { "_id": 3, "test": 3 }])
-
-   Did it work? & Why?
-
-   ***Yes & No***  The response indicates that one file was inserted, and the others pulled an error.  We get no indication in the response which documents was inserted
-
-4. Try the same insert as above but make it unordered.
+3.  Insert these three test documents into the inspections collection.
 
          db.inspections.insert([{ "_id": 1, "test": 1 },{ "_id": 1, "test": 2 },
-                       { "_id": 3, "test": 3 }],{ "ordered": false })
+                        { "_id": 3, "test": 3 }])
 
-   The result: all documents with unique _id will be written, and any duplicates will throw individual errors
+    Did it work? & Why?
 
+    **_Yes & No_** The response indicates that one file was inserted, and the others pulled an error. We get no indication in the response which documents was inserted
 
-5. Try this command. 
+4.  Try the same insert as above but make it unordered.
 
-       db.inspection.insert([{ "_id":1, "test": 1 },{ "_id": 3,"test": 3 }])
+          db.inspections.insert([{ "_id": 1, "test": 1 },{ "_id": 1, "test": 2 },
+                        { "_id": 3, "test": 3 }],{ "ordered": false })
 
-   No because the last insert use the same _id's
+    The result: all documents with unique \_id will be written, and any duplicates will throw individual errors
+
+5.  Try this command.
+
+        db.inspection.insert([{ "_id":1, "test": 1 },{ "_id": 3,"test": 3 }])
+
+    No because the last insert use the same \_id's
 
 ### Quiz: Insert Order
 
@@ -197,17 +192,18 @@ Which of the following commands will successfully insert 3 new documents into an
       db.pets.insert([{ "_id": 1, "pet": "cat" },
                 { "_id": 2, "pet": "dog" },
                 { "_id": 3, "pet": "fish" },
-                { "_id": 3, "pet": "snake" })       
+                { "_id": 3, "pet": "snake" })
       // First 3 documents will be inserted. Duplicate will cause an error, but because it happens at the end(order) does not throw error before first 3 are written
 
 ## Update
 
-For this lesson 
+For this lesson
 
       use sample_training
+
 Grades Collection contains an array field
 
-Update student *"student_id:0"* record for the *"class:339"*
+Update student _"student_id:0"_ record for the _"class:339"_
 
 In Atlas: update one document, select the edit button that looks like a pencil.
 
@@ -219,19 +215,19 @@ MongoDB has a flexible data model, which means that you can have fields that con
 
 Select any invalid MongoDB documents from the given choices:
 
-*NONE OF THE ABOVE* All choices were valid 
+_NONE OF THE ABOVE_ All choices were valid
 
-## Updating Documents- mongo shell
+### Updating Documents- mongo shell
 
 There are two Update method:
 
-   updateOne()- updates the first document that matches the query
+***updateOne()***- updates the first document that matches the query
 
          db.collection.updateOne(filter, update, options)
 
-   from https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/
+from https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/
 
-   The updateOne() method has the following syntax:
+The updateOne() method has the following syntax:
 
          db.collection.updateOne(
             <filter>,
@@ -244,12 +240,13 @@ There are two Update method:
                   hint:  <document|string> // Available starting in MongoDB 4.2.1
             }
          )
+<br>
 
-   updateMany()- updates all documents that match the given query
+***updateMany()***- updates all documents that match the given query
 
-   from https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/
+from https://docs.mongodb.com/manual/reference/method/db.collection.updateMany/
 
-   The updateMany() method has the following form:
+The updateMany() method has the following form:
 
          db.collection.updateMany(
            <filter>,
@@ -267,69 +264,67 @@ For this exercise use sample_training.zips
 
       use sample_training
 
-1. Find all documents in the zips collection where the zip field is equal to 12434.
+1.  Find all documents in the zips collection where the zip field is equal to 12434.
 
          db.zips.find({ "zip": "12534" }).pretty()
 
-2. Find all documents in the zips collection where the city field is equal to "HUDSON".
+2.  Find all documents in the zips collection where the city field is equal to "HUDSON".
 
          db.zips.find({ "city": "HUDSON" }).pretty()
 
+3.  Find how many documents in the zips collection have the city field is equal to "HUDSON".
 
-3. Find how many documents in the zips collection have the city field is equal to "HUDSON".
+             db.zips.find({ "city": "HUDSON" }).count()
 
-         db.zips.find({ "city": "HUDSON" }).count()
-<br>
+    <br>
 
-4. Update all documents in the zips collection where the city field is equal to "HUDSON" by adding 10 to the current value of the "pop" field.<br>
+4.  Update all documents in the zips collection where the city field is equal to "HUDSON" by adding 10 to the current value of the "pop" field.<br>
 
-   using the $inc operator:  {$inc": {pop:10, "<field2>": <increment value>, ...}}
+    using the $inc operator:  {$inc": {pop:10, "<field2>": <increment value>, ...}}
 
-         db.zips.updateMany({ "city": "HUDSON" }, { "$inc": { "pop": 10 } })
+          db.zips.updateMany({ "city": "HUDSON" }, { "$inc": { "pop": 10 } })
 
-   multiple fields can be updated at the same time, just separate with comma
+    multiple fields can be updated at the same time, just separate with comma
 
-   when the operation is complete you get an acknowledgement of the matched and modified elements<br>
-   <br>
+    when the operation is complete you get an acknowledgement of the matched and modified elements<br>
+    <br>
 
+5.  Update a single document in the zips collection where the zip field is
+    equal to 12534 by setting the value of the "pop" field to 17630.
 
-5. Update a single document in the zips collection where the zip field is
-   equal to 12534 by setting the value of the "pop" field to 17630.
+             db.zips.updateOne({ "zip": "12534" }, { "$set": { "pop": 17630 } })
 
-            db.zips.updateOne({ "zip": "12534" }, { "$set": { "pop": 17630 } })
+    <br>
 
-   <br>
-6. Update a single document in the zips collection where the zip field is
-   equal to 12534 by setting the value of the "population" field to 17630.
-   (this is an example of how Mongo DB will interpret population as a new document filed and create it, && not see it as a typo ***implicit creation***)
+6.  Update a single document in the zips collection where the zip field is
+    equal to 12534 by setting the value of the "population" field to 17630.
+    (this is an example of how Mongo DB will interpret population as a new document filed and create it, && not see it as a typo **_implicit creation_**)
 
-         db.zips.updateOne({ "zip": "12534" }, { "$set": { "population": 17630 } })
+          db.zips.updateOne({ "zip": "12534" }, { "$set": { "population": 17630 } })
 
-   $set updates the value of a given filed with a specified value
+    $set updates the value of a given filed with a specified value
 
-         {$"set":{<filed1>: <value1>, <field2>: <new value>, ...}}
-   
-   $push adds an array filed of specified value
+          {$"set":{<filed1>: <value1>, <field2>: <new value>, ...}}
 
-         {$push":<field1>:<value1>, ...}
+    $push adds an array filed of specified value
 
-   <br>
+          {$push":<field1>:<value1>, ...}
 
-for the next exercise 
+    <br>
+
+for the next exercise
 
       use sample_training
 
-1. Find all documents in the grades collection where the student_id is 151, and the class_id field is 339.
+1.  Find all documents in the grades collection where the student_id is 151, and the class_id field is 339.
 
          db.grades.find({ "student_id": 151, "class_id": 339 }).pretty()
 
-
-2. Find all documents in the grades collection where the student_id is 250, and the class_id field is 339.
+2.  Find all documents in the grades collection where the student_id is 250, and the class_id field is 339.
 
          db.grades.find({ "student_id": 250, "class_id": 339 }).pretty()
 
-
-3. Update one document in the grades collection where the student_id is 250, and the class_id field is 339, by adding a document element to the "scores" array.
+3.  Update one document in the grades collection where the student_id is 250, and the class_id field is 339, by adding a document element to the "scores" array.
 
          db.grades.updateOne({ "student_id": 250, "class_id": 339 },
                     { "$push": { "scores": { "type": "extra credit",
@@ -351,28 +346,27 @@ Given a pets collection where each document has the following structure and fiel
        "climate": ["polar", "equatorial", "continental", "mountain"]
       }
 
-   - Which of the following commands will add new fields to the updated documents?
+- Which of the following commands will add new fields to the updated documents?
 
-         db.pets.updateMany({ "pet": "cat" },
-                   { "$set": { "type": "dangerous",
-                               "look": "adorable" }})
-         //fields 'type' && 'look' will be created implicitly by the $set giving a value to documents matching "pet":"cat"
+      db.pets.updateMany({ "pet": "cat" },
+                { "$set": { "type": "dangerous",
+                            "look": "adorable" }})
+      //fields 'type' && 'look' will be created implicitly by the $set giving a value to documents matching "pet":"cat"
 
-         db.pets.updateMany({ "pet": "cat" },
-                   { "$push": { "climate": "continental",
-                                "look": "adorable" } })
-         //"look' filed created with value 'adorable'
+      db.pets.updateMany({ "pet": "cat" },
+                { "$push": { "climate": "continental",
+                             "look": "adorable" } })
+      //"look' filed created with value 'adorable'
 
-      incorrect response:
+  incorrect response:
 
-         db.pets.updateMany({ "pet": "cat" },
-                   {"$set": { "domestic?": true, "diet": "mice" }})
-         //Fields already exist, and will only be updated
+      db.pets.updateMany({ "pet": "cat" },
+                {"$set": { "domestic?": true, "diet": "mice" }})
+      //Fields already exist, and will only be updated
 
-         db.pets.updateMany({ "pet": "cat" },
-                   { "$set": { "climate": "continental" }})
-         //problems climate already exists as an array, this will update it to a single value removing the array
-
+      db.pets.updateMany({ "pet": "cat" },
+                { "$set": { "climate": "continental" }})
+      //problems climate already exists as an array, this will update it to a single value removing the array
 
 ## Delete
 
@@ -381,18 +375,19 @@ for this exercise
       use sample_training
 
 Delete is irreversible. once done the document, documents, or collection will be eliminated
-deleteOne()  should only be used with the '_id' value
+deleteOne() should only be used with the '\_id' value
 
       deleteOne('_id':22)
 
 Begin by removing the test documents added in the previous exercise
 
       db.inspection.find().pretty()
-      
+
       db.inspections.deleteMany({'test':1})
 
       db.inspections.deleteMany({'test':3})
-      
+
+
 Drop the database
 
       db.inspection.drop()
@@ -429,90 +424,143 @@ People often confuse NEW YORK City as the capital of New York state, when in rea
 
 Add a boolean field "capital?" to all documents pertaining to ALBANY NY, and NEW YORK, NY. The value of the field should be true for all ALBANY documents and false for all NEW YORK documents.
 
+         db.zips.updateMany({ "city": "NEW YOR" }, { $set: { "capital?": "false"} })
 
-
-{"state":"NY", "city":"New York"}
-
-db.zips.find({"state":"NY", "city":"New York"}).pretty()
-db.zips.find({"state": "NY"})
-
-
-{"city":"New York"}
-city:"NEW YORK"
-
+         db.zips.updateMany({ "city": "ALBANY" },{ $set: { "capital?":true} })
+<br>
 
 ### Exam
-Inserting New Documents - insert() and errors:
+
+**Inserting New Documents - insert() and errors:**
 
 1. Get a random document from a collection
-2. Copy this random document, and insert it back to the collection. Do you get
-   a "Duplicate Key" error?
-3. Insert that document into the collection without the _id field to get a
-   successfull insert. Did it work?
+
+         db.zips.findOne()
+        
+2. Copy this random document, and insert it back to the collection. Do you get a "Duplicate Key" error?
+
+Yes
+
+3. Insert that document into the collection without the "_id" field to get a succesfull insert. Did it work?
+
+Yes
+
+<br>
+
+**Inserting New Documents - insert() order:**
+
+1. Insert three test documents into the inspections collection:
 
 
-Inserting New Documents - insert() order:
+            db.inspections.insert([{"test":1},{"test":2},{"test":3}])
+<br>
 
-1. Insert three test documents into the inspections collection
-   db.inspections.insert([{"test":1},{"test":2},{"test":3}])
-2. Insert the same three documents into the inspections collection. Did it
-   work? Why? Yes it worked becasue they do not have id's
-3. Insert these three test documents into the inspections collection. 
-	db.inspections.insert([{"_id": 1, "test": 1},{"_id": 1, "test": 2},{"_id": 3,"test": 3}])
-	Did it work? Yes 
-   Why? Because any id's that were not duplicates were written
-  
+2. Insert the same three documents into the inspections collection. Did it work? Why? 
+
+Yes it worked because they do not have id's
+
+3. Insert these three test documents into the inspections collection.
+
+         db.inspections.insert([{"_id": 1, "test": 1},{"_id": 1, "test": 2},{"_id": 3,"test": 3}])
+
+Did it work?  Why?
+
+Yes Because any id's that were not duplicates were written
+
 4. Try the same insert as above but make it unordered.
- no dupliate keys
-	
-5. Try this command. Did it work? Why?
-   db.inspection.insert([{ "_id":1, "test": 1 },{ "_id": 3,"test": 3 }])
+
+Unordered throws individual errors for the duplicates, and inserts the rest
+
+5. Try this command. 
+
+        db.inspection.insert([{ "_id":1, "test": 1 },{ "_id": 3,"test": 3 }])
+
+Did it work? Why?
+
+No because of duplicates
+
+<br>
+
+**Updating Documents - mongo shell**
+
+1. Find all documents in the zips collection where the zip field is equal to 12434.
+
+         db.zips.find({"zip": "12434" }).pretty()
 
 
-Updating Documents  - mongo shell
+2. Find all documents in the zips collection where the city field is equal to "HUDSON".
 
-1. Find all documents in the zips collection where the zip field is equal to
-   12434.
-2. Find all documents in the zips collection where the city field is equal to
-   "HUDSON".
-3. Find how many documents in the zips collection have the city field is equal
-   to "HUDSON".
-   
-4. Update all documents in the zips collection where the city field is equal
-   to "HUDSON" by adding 10 to the current value of the "pop" field.
-   
-5. Update a single document in the zips collection where the zip field is
-   equal to 12534 by setting the value of the "pop" field to 17630.
-   
-6. Update a single document in the zips collection where the zip field is
-   equal to 12534 by setting the value of the "population" field to 17630.
-   
+            ​db.zips.find({ "city": "HUDSON" }).pretty()
+
+
+3. Find how many documents in the zips collection have the city field is equal to "HUDSON".
+
+            ​db.zips.find({ "city": "HUDSON" }).count()
+
+
+4. Update all documents in the zips collection where the city field is equal to "HUDSON" by adding 10 to the current value of the "pop" field.
+
+            ​db.zips.updateMany({ "city": "HUDSON" }, { "$inc": { "pop": 10 } })
+
+
+5. Update a single document in the zips collection where the zip field is equal to 12534 by setting the value of the "pop" field to 17630.
+
+            ​db.zips.updateOne({ "zip": "12534" }, { "$set": { "pop": 17630 } })
+
+
+6. Update a single document in the zips collection where the zip field is equal to 12534 by setting the value of the "population" field to 17630.
+
+             db.zips.updateOne({ "zip": "12534" }, { "$set": { "population": 17630 } })
+
+
 7. Find all documents in the grades collection where the student_id is 151,
    and the class_id field is 339.
-   
+
+             ​db.grades.find({ "student_id": 151, "class_id": 339 }).pretty()
+
+
 8. Find all documents in the grades collection where the student_id is 250,
    and the class_id field is 339.
-   
+
+            ​db.grades.find({ "student_id": 250, "class_id": 339 }).pretty()
+
+
 9. Update one document in the grades collection where the student_id is 250,
-   and the class_id field is 339, by adding a document element to the "scores"
-   array.
+   and the class_id field is 339, by adding a document element to the "scores" array.
 
+             db.grades.updateOne({ "student_id": 250, "class_id": 339 },
+            { "$push": { "scores": { "type": "extra credit",
+                                     "score": 100 }
+                        }
+             })
 
+   <br>
 
 
 Deleting Documents and Collections
 
 1. Look at all the documents in the inspections collection that have test field
    equal to 1.
+
+
 2. Look at all the documents in the inspections collection that have test field
    equal to 3.
+
+
 3. Delete all the documents from the inspections collection that have test
    field equal to 1
+
+
 4. Delete one document from the inspections collection that has test field
    equal to 3
-   
+
+
 5. Inspect what is left of the inspection collection.
 
+
+
 6. View what collections are present in the sample_training database.
+
+
 
 7. Drop the inspection collection

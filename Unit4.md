@@ -15,14 +15,14 @@ mongo mongo "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/admin"
   5. [Projection](#projection)
 
 
-syntax: $
+syntax: ***$***
   - precedes MQL operators
   - precedes Aggregation pipeline stages
   - Allows Access to Field Values
 
 ## Comapirison
 
-    $eq = EQual to  ||  $ne = NotEqual to
+    $eq = Equal to  ||  $ne = NotEqual to
 
     $gt > Greater Than  ||  $lt < Less Than
 
@@ -53,7 +53,8 @@ How many documents in the sample_training.zips collection have fewer than 1000 p
 
     db.zips.find({"pop":{"$lt":1000}}).count()
 
-How many documents in the sample_training.zips collection have fewer than 1000 people listed in the pop field?
+
+<br>
 
 ### Lab 2: Comparison Operators
 
@@ -79,13 +80,15 @@ which of the following statements will return all routes that have at least one 
 
  ##  Logic
 
-  $and  meet all specifications (is implicit if not specified)
+  ***$and***  meet all specifications (is implicit if not specified)
   
-  $or   at least one spec
+  ***$or*** at least one spec
   
-  $nor  returns only those that fail to match  (use as filter)
+  ***$nor***  returns only those that fail to match  (use as filter)
   
-  $not  negates the query specification returns all that do not match
+***$not***  negates the query specification returns all that do not match
+
+<br>
 
 For these exercises:
 
@@ -151,7 +154,6 @@ Quiz 1: Logic Operators
 
     db.inspections.find({"result":"Out of Business", "sector":"Home Improvement Contractor - 100"}).count()
 
-     db.inspections.find({$and : [{"result":"Out of Business"}, {"sector":"Home Improvement Contractor - 100"}]}).count()
 
 Quiz 2: Logic Operators
 
@@ -188,7 +190,8 @@ $ expr allows for variables and conditional statements
 
 What trips start and end at the same station?
 
-    Atlas:{"$expr" : {"$eq": ["start station name", "$end station name"]}}
+    Atlas:
+    {"$expr" : {"$eq": ["start station name", "$end station name"]}}
 
     {
     "$expr": {
